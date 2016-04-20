@@ -223,7 +223,7 @@ class yform
 		$html = "<div class='form-group'>";
 		$html .= "<div class='col-md-".$col_size."'>";
 		$html .= " <input  type='submit'
-		name='".$col_size."' value='".$label."' class='".$class."'/>";
+		name='".$name."' value='".$label."' class='".$class."'/>";
 		
 		$html .= "</div></div>";
 		$this->_input_html .= $html; 
