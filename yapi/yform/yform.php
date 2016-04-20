@@ -10,8 +10,8 @@ class yform
 	protected $_title; 
 	public function __construct($action, $method,$class="",$title="") 
     {
-       $this->_method = $action;
-       $this->_action = $method;
+       $this->_method = $method;
+       $this->_action =  $action;
        $this->_class = $class;
        $this->_title = $title;
        $this->is_upload = false;
@@ -271,6 +271,34 @@ class yform
 		$this->_form_html .="</fieldset></form>";
 		return $this->_form_html;
 	}//end
+	
+	//array(['value'=>1,'name'=>'foo'])
+	/*
+	name:convert_to_select_data
+	description: creates data array for select element option elements
+	input:
+	-$arr(array)- your array from db
+	-$val(string)- the value att (most of the time id drom db table)
+	-$name(string)- what the user will see
+	-$selected(string/int)- the selected val att value (again mostly the id of selected option)
+	output: array in the neded format
+	*/
+	public static function convert_to_select_data($arr,$val,$name,$selected = false)
+    {
+		$return_arr = array();
+		foreach($arr as $item)
+		{
+			if(!$selected || $item[$val] != $selected)
+			{
+				$return_arr[] = array('value'=>$item[$val],'name'=>$item[$name]);
+			}
+			else
+			{
+				$return_arr[] = array('value'=>$item[$val],'name'=>$item[$name],'selected'=>1);
+			}
+		}
+		return $return_arr;
+	}//end convert_to_select_data
 }//end yform
  
 ?>
