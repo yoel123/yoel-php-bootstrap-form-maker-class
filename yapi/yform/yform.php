@@ -172,7 +172,7 @@ class yform
 		{
 			if($item['required'] == 1){$required ="required";}else{$required ="";}
 			if(!isset($item['value'])){$item['value'] ="";}
-			if($item['checked'] == 1){$checked ="checked='checked'";}else{$checked ="";}
+			if(isset($item['checked'] )&&$item['checked'] == 1){$checked ="checked='checked'";}else{$checked ="";}
 			
 			$html .= "<div class='radio".$class."'>";
 			$html .= "<label><input type='radio' name='".$item['name']."' 
@@ -299,6 +299,37 @@ class yform
 		}
 		return $return_arr;
 	}//end convert_to_select_data
+	
+	
+	// array(['value'=>1,'name'=>'foo','required'=>1,'checked'=>0,'label'=>1])
+	//$html .= " <label><input type='checkbox' value='".$item['value']."'  name = '".$item['name']."' 
+		/*
+	name:convert_to_select_data
+	description: creates data array for select element option elements
+	input:
+	-$arr(array)- your array from db
+	-$val(string)- the value att (most of the time id drom db table)
+	-$name(string)- input name att
+	-$lable(string)- the att of lable (most of the time name of row data from db table)
+	-$selected(arr)- array of vals (ids mostly), that shod be chacked
+	output: array in the neded format
+	*/
+	public static function convert_to_chackbox_data($arr,$val,$label,$name,$checked = false)
+	{
+		$return_arr = array();
+		foreach($arr as $item)
+		{
+			if(!$checked || !in_array($item[$val], $checked) )
+			{
+				$return_arr[] = array('value'=>$item[$val],'name'=>$name,'label'=>$item[$label],'required'=>0,'checked'=>0);
+			}
+			else
+			{
+				$return_arr[] = array('value'=>$item[$val],'name'=>$name,'checked'=>1,'label'=>$item[$label],'required'=>0);
+			}
+		}
+		return $return_arr;
+	}//end convert_to_chackbox_data
 }//end yform
  
 ?>
